@@ -1,0 +1,30 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=370
+
+expatch adds 2 new commands to explorer.vim: v and g
+v - view graphic file
+g - get full file name and store it in global variable
+
+It works also with mouse and <Enter>:
+v == <2-LeftMouse> == <Enter> (if file is graphic file)
+g == <2-S-LeftMouse>
+
+expmod.vim takes care about global variable. Behaviour of <F8> depends
+on file name and file type of current buffer. The most dramatic effects
+are if ft=html.
+For graphic files it _o_pens new line and inserts:
+<img src="relative_path" width="100" height="100" alt="short_file_name"
+border="0">
+
+relative_path is a relative path from edited file to graphic file. E.g.
+"../images/alpha.gif"
+dimensions are given by identify
+short_file_name is short file name ;)
+border is default value.
+
+For all other files it inserts:
+<a href="relative_path" class="">
+
+<F8> works also for other 'ft' values:
+For php: include("relative_path");
+For c: #include <relative_path>
+

@@ -1,0 +1,46 @@
+6a7
+> " Modifications (v, g) by Mikolaj Machowski <mikmach@wp.pl>
+324a326
+>   nnoremap <buffer> g    :call <SID>GetInformation()<cr>
+325a328
+>   nnoremap <buffer> v    :call <SID>OpenGfile(getline("."))<cr>
+327a331
+>   nnoremap <buffer> <2-S-leftmouse> :call <SID>GetInformation()<cr>
+334a339,346
+> " Get Path of file and load it into global variable
+> "
+> function! s:GetInformation()
+>   let g:alenazwapliku = s:GetFullFileName()
+>   return g:alenazwapliku
+> endfunction
+> 
+> "---
+488a501,510
+> " Open Graph File
+> "
+> function! s:OpenGfile(fn)
+>   if a:fn =~ "gif$\\|jpg$\\|png$"
+>     let fn = s:GetFullFileName()
+> 	exe system("xli -quiet ".fn)
+>   endif
+> endfunction
+> 
+> "---
+492c514,515
+<   if expand("<cfile>") =~ '[\\/]$'
+---
+>   let fn = expand("<cfile>") 
+>   if fn =~ '[\\/]$'
+493a517,518
+>   elseif fn =~ "gif\\|jpg$\\|png$"
+> 	call s:OpenGfile(fn)
+527c552,556
+<   exec(a:editcmd . " " . escape(fn,s:escfilename))
+---
+>   if fn =~ "gif$\\|jpg$\\|png$r"
+> 	call s:OpenGfile(fn)
+>   else
+>     exec(a:editcmd . " " . escape(fn,s:escfilename))
+>   endif
+726a756
+>            \."\" v : view graphic file    g : get filename\n"
